@@ -54,12 +54,25 @@ public class LinkedList<E> implements List<E>{
 
     @Override
     public Integer indexOf(E element) {
-        return null;
+        Node currentElement = head;
+        Integer index = 0;
+
+        if (currentElement != null) {
+            do {
+                currentElement = currentElement.getNext();
+                index ++;
+                if (currentElement.getData() == element) {
+                    return index;
+                }
+
+            } while (currentElement.hasNext());
+        }
+        return -1;
     }
 
     @Override
     public Boolean contains(E element) {
-        return null;
+        return indexOf(element) != -1;
     }
 
     @Override
@@ -72,21 +85,24 @@ public class LinkedList<E> implements List<E>{
 
     public static void main(String[] args) {
         LinkedList<String> stringLinkedList = new LinkedList<>();
+        String c = "ccc";
         stringLinkedList.add("aaa");
         stringLinkedList.add("bbb");
         stringLinkedList.add("bbb");
         stringLinkedList.add("bbb");
-        stringLinkedList.add("ccc");
-        System.out.println(stringLinkedList.size());
+        stringLinkedList.add(c);
+//        System.out.println(stringLinkedList.size());
         System.out.println(stringLinkedList.get(0));
         System.out.println(stringLinkedList.get(1));
         System.out.println(stringLinkedList.get(2));
         System.out.println(stringLinkedList.get(4));
-        System.out.println(stringLinkedList.size());
+//        System.out.println(stringLinkedList.size());
+        System.out.println(stringLinkedList.indexOf("bbb"));
         stringLinkedList.delete(3);
-        System.out.println(stringLinkedList.size());
+//        System.out.println(stringLinkedList.size());
         System.out.println(stringLinkedList.get(3));
         stringLinkedList.delete(4);
+
         System.out.println(stringLinkedList.size());
     }
 }
