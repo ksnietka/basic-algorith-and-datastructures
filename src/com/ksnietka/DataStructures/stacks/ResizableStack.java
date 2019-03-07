@@ -1,6 +1,7 @@
 package com.ksnietka.DataStructures.stacks;
 
-import java.util.Arrays;
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 public class ResizableStack <T> {
     private T[] values;
@@ -8,7 +9,6 @@ public class ResizableStack <T> {
     private int top = -1;
     @SuppressWarnings("unchecked")
     public ResizableStack() {
-
         values =  (T[]) new Object[defaultStackSize];
     }
 
@@ -27,11 +27,9 @@ public class ResizableStack <T> {
             return null;
         if(top == values.length / 4) resize(values.length/ 2);
         T value = values[top--];
-
-
-
         return value;
     }
+
     public T[] toArray () {
         return values;
     }
@@ -50,15 +48,27 @@ public class ResizableStack <T> {
     }
 
 
-    public static void main(String[] args) {
-        final ResizableStack<Integer> integerResizableStack = new ResizableStack<>();
+    public Iterator<T> iterator () {
+        return new ReverseArrayIterator();
 
-        for(int i = 0; i< 10000; i++) {
-            integerResizableStack.push(i);
+    }
+
+    private class ReverseArrayIterator implements Iterator<T> {
+        int i = top;
+        @Override
+        public void remove() {
+
         }
 
-        for(int i = 0; i< 10000; i++) {
-            System.out.println(integerResizableStack.pop());
+        @Override
+        public boolean hasNext() {
+            return i > 0;
+        }
+
+        @Override
+        public T next() {
+            return values[--i];
+
         }
     }
 }
